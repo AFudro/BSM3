@@ -27,19 +27,26 @@ export class AuthComponent implements OnInit {
     }
 
     Authorize() {
-        if (this.passwordService.comparePassword(this.passwordForm.value.password)) {
-            this.routerExtensions.navigate(['/note'], {
-            });
-        }
+        this.passwordService.comparePassword(this.passwordForm.value.password).then((result) => {
+            if(result) {
+                this.routerExtensions.navigate(['/note'], {
+                });
+            }
+            else {
+                dialogs.alert({
+                    title: "Bład",
+                    message: "Nieprawidłowe hasło",
+                    okButtonText: "ok"
+                }).then(function () {
+    
+                });
+            }
 
-        else {
-            dialogs.alert({
-                title: "Bład",
-                message: "Nieprawidłowe hasło",
-                okButtonText: "ok"
-            }).then(function () {
+        })
 
-            });
-        }
+        // if (this.passwordService.comparePassword(this.passwordForm.value.password)) {
+
+        // }
+
     }
 }
