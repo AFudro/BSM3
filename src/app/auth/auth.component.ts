@@ -1,5 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { PasswordService } from '../shared/password.service';
+import { RouterExtensions } from 'nativescript-angular/router';
+import * as dialogs from 'tns-core-modules/ui/dialogs/dialogs';
 
 @Component({
     selector: "Auth",
@@ -10,11 +13,13 @@ export class AuthComponent implements OnInit {
     private passwordForm: FormGroup;
     constructor(
         private formBuilder: FormBuilder,
+        private routerExtensions: RouterExtensions,
+        private passwordService: PasswordService,
     ) {
         this.passwordForm = this.formBuilder.group({
             password: ['', Validators.required],
         });
-        
+
     }
 
     ngOnInit(): void {
@@ -22,6 +27,19 @@ export class AuthComponent implements OnInit {
     }
 
     Authorize() {
-        
+        if (this.passwordService.comparePassword(this.passwordForm.value.password)) {
+            this.routerExtensions.navigate(['/note'], {
+            });
+        }
+
+        else {
+            dialogs.alert({
+                title: "Bład",
+                message: "Nieprawidłowe hasło",
+                okButtonText: "ok"
+            }).then(function () {
+
+            });
+        }
     }
 }

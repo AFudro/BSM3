@@ -1,4 +1,7 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
+import * as dialogs from 'tns-core-modules/ui/dialogs/dialogs';
+import { PasswordService } from '../shared/password.service';
+import { RouterExtensions } from 'nativescript-angular/router';
 
 @Component({
     selector: "Note",
@@ -7,11 +10,31 @@ import { Component, OnInit } from "@angular/core";
 })
 export class NoteComponent implements OnInit {
 
-    constructor() {
-        // Use the component constructor to inject providers.
+    @ViewChild('note')
+    private note: ElementRef;
+
+    constructor(
+        private passwordService: PasswordService,
+        private routerExtensions: RouterExtensions,
+    ) {
     }
 
     ngOnInit(): void {
-        // Init your component properties here.
+        this.note.nativeElement.text = this.passwordService.getNote();
+    }
+
+    save() {
+        this.passwordService.saveNote(this.note.nativeElement.text)
+        dialogs.alert({
+            message: "Zapisano Notatkę",
+            okButtonText: "ok"
+        }).then(function () {
+
+        });
+    }
+
+    changePassword() {
+        this.routerExtensions.navigate(['/set-password'], {
+        });
     }
 }

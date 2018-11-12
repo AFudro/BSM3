@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RouterExtensions } from 'nativescript-angular/router';
+import { PasswordService } from '../shared/password.service';
 
 @Component({
     selector: "Set-password",
@@ -14,6 +15,7 @@ export class SetPasswordComponent implements OnInit {
     constructor(
         private formBuilder: FormBuilder,
         private routerExtensions: RouterExtensions,
+        private passwordService: PasswordService,
     ) {
         this.passwordForm = this.formBuilder.group({
             password: ['', Validators.required],
@@ -22,11 +24,12 @@ export class SetPasswordComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        // Init your component properties here.
     }
 
     setPassword() {
+        this.passwordService.setPassword(this.passwordForm.value.password)
         this.routerExtensions.navigate(['/auth'], {
+            clearHistory: true,
         });
     }
 }

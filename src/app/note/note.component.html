@@ -1,7 +1,9 @@
 <ActionBar class="action-bar">
-    <Label class="action-bar-title" text="Home"></Label>
+    <Label class="action-bar-title" text="Notatka"></Label>
 </ActionBar>
 
-<GridLayout class="page">
-    <Label text="test"></Label>
-</GridLayout>
+<StackLayout>
+    <TextField #note class="input"> </TextField>
+    <Button class="btn btn-primary btn-rounded-lg" text="Zapisz" (tap)="save()"></Button>
+    <Button class="btn btn-outline btn-rounded-lg" text="Zmien hasło" (tap)="changePassword()"></Button>
+</StackLayout>
