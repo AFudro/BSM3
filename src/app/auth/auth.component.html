@@ -1,0 +1,8 @@
+<ActionBar class="action-bar">
+    <Label class="action-bar-title" text="Autoryzacja"></Label>
+</ActionBar>
+
+<StackLayout class="page" [formGroup]="passwordForm">
+    <TextField formControlName="password" hint="Hasło" secure="true" class="input input-rounded m-t-10" ></TextField>
+    <Button [isEnabled]="passwordForm.valid" class="btn btn-primary btn-rounded-lg" text="Potwierdź" (tap)="Authorize()"></Button>
+</StackLayout>

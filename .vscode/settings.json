@@ -1,0 +1,16 @@
+{
+    "tslint.exclude": "**/shared/**/*.ts",
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "typescript.preferences.quoteStyle": "single",
+    "files.exclude": {
+        "**/*.js": {
+            "when": "$(basename).ts"
+        },
+        "**/*.css": {
+            "when": "$(basename).scss"
+        },
+        "**/*.js.map": {
+            "when": "$(basename)"
+        }
+    }
+}
