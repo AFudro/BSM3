@@ -6,7 +6,8 @@ import { RouterExtensions } from 'nativescript-angular/router';
 @Component({
     selector: "Note",
     moduleId: module.id,
-    templateUrl: "./note.component.html"
+    templateUrl: "./note.component.html",
+    styleUrls: ["./note.scss"],
 })
 export class NoteComponent implements OnInit {
 
