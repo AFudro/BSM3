@@ -8,6 +8,7 @@ export class PasswordService {
     securedPassword: any;
     aesKey: string;
 
+    
     constructor() {
         this.securedPassword = appSettings.getString('password') ? JSON.parse(appSettings.getString('password')) : undefined;
     }
@@ -20,6 +21,13 @@ export class PasswordService {
         const aesKey: string = this.getPbkdf2(password);
         const ciphertext = CryptoJS.AES.encrypt(password, aesKey);
         this.securedPassword = ciphertext;
+
+        if (this.getNote()) {
+            const note = this.getNote();
+            const securedNote = CryptoJS.AES.encrypt(note, aesKey);
+            appSettings.setString('note', JSON.stringify(securedNote.toString()));
+        }
+
         appSettings.setString('password', JSON.stringify(ciphertext.toString()));
     }
 
@@ -46,7 +54,7 @@ export class PasswordService {
     }
 
     getPbkdf2(password: String) {
-        const pbkdf2 = CryptoJS.PBKDF2(password, 'salt', 100, 64, 'sha512');
+        const pbkdf2 = CryptoJS.PBKDF2(password, '8397dfdsfgsrjhjh', 100, 64, 'sha512');
         return pbkdf2.toString();
     }
 }
